@@ -41,10 +41,21 @@ Route::get('/','HomeController@index');
 Route::get('/about','AboutController@index');
 Route::get('/contact','ContactController@index');
 
-Route::get('/products/{product}','HomeController@show');
+Route::get('/product/{product}','HomeController@productDetails');
 Route::post('/product/ratings', 'ProductController@store');
 
-Route::get('/products/submitRating','HomeController@submitRating');
+Route::post('/product/submitRating','HomeController@submitRating');
+
+// cart items
+Route::post('/add-to-cart','CartController@addToCart');
+Route::get('/mycart','CartController@myCart');
+Route::post('/update-cart','CartController@updateCart');
+
+Route::any('/cartItemDelete/{temp_order_row_id}','CartController@cartItemDelete');
+
+Route::any('/cartItemDeleteAll/','CartController@cartItemDeleteAll');
+
+
 
 
 

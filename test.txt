@@ -23,10 +23,10 @@
 
       <div class="col-md-6">
         <div class="product-variation">
-            <form action="/add-to-cart" method="post">
+            <form action="{{url('/')}}/add-to-cart" method="post">
                {{ csrf_field() }}
               <div class="cart-plus-minus">
-                 <input type="hidden" name="product_id" value="{{ $data->product_id }}"/>
+                 <input type="hidden" name="product_row_id" value=""/>
                 <label for="qty">Quantity:</label>
                 <div class="numbers-row">
                   <input type="number" class="qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
@@ -67,10 +67,10 @@
               <div id="comments">
                 @if(!$product_ratings->isEmpty())
                 @foreach($product_ratings as $rating)
-                <div id="comment_rating_{{ $rating->id }}" class="row" style="border: 2px solid #337ab7; border-radius: 5px; margin: 10px 0px; padding: 10px;">
+                <div id="comment_rating_{{ $insertedId }}" class="row" style="border: 2px solid #337ab7; border-radius: 5px; margin: 10px 0px; padding: 10px;">
                     <div class="col-md-2 col-sm-2 hidden-xs">
                         <figure class="thumbnail">
-                        <img class="img-responsive" src="{{ asset('/') }}images/user.png">
+                        <img class="img-responsive" src="{{ asset('images/sample_user.png') }}">
                         <figcaption class="text-center"></figcaption>
                         </figure>
                     </div>
@@ -78,14 +78,15 @@
                         <div class="panel panel-default arrow left">
                             <div class="panel-body">
                                 <header class="text-left">
-                                <div class="comment-user"><i class="fa fa-user"></i>{{ $rating->name }}</div>
+                                <div class="comment-user"><i class="fa fa-user"></i>{{ $product_ratings['author'] }}</div>
                                 <time class="comment-date"></time>
                                 </header>
                                 <div class="comment-post">
                                     <p>
-                                        {{ $rating->id }}
+                                        {{ $product_ratings['comment'] }}
                                     </p>
                                 </div>
+                            <input type="hidden" id="reviewId" name="reviewId" value="{{ $insertedId }}">
                             </div>
                         </div>
                     </div>
@@ -180,10 +181,9 @@
   $("#submitreview").on("click", function(event) {
     $.ajax({
       type: 'POST',
-      url: "{{ url('/product/submitRating') }}",
+      url: "{{ url('product/submitRating') }}",
       data: $('#commentform').serialize(),
       success: function(data){
-
         $("#comments").append(data);
         $('html, body').animate({
           scrollTop: $("#comments").offset().top

@@ -42,16 +42,23 @@ class HomeController extends Controller
 
     }
 
-    public function show($productid) {
+    public function productDetails($product_id) {
+        $data = DB::table('products')->where('product_id', $product_id)->first();
+        //dd($data);
+        $product_ratings = ProductRating::all();
+        return view('productdetail', ['data' => $data, 'product_ratings' => $product_ratings ]);
+    }
 
-        $data = DB::table('products')->where('product_id', $productid)->first();
+    public function show($product_id) {
+
+        $data = DB::table('products')->where('product_id', $product_id)->first();
         return view('productdetail',[ 'data' => $data]);
 
     }
 
     public function submitRating(Request $request){
         $rating_data = $request->all();
-
+        
         $productRating_model = new ProductRating();
         $pid = $request->product_id;
         $productRating_model->user_id = 0;
@@ -61,9 +68,9 @@ class HomeController extends Controller
         $productRating_model->rating = $request->rating;
         $productRating_model->reviews = $request->comment;
 
-        if($productRating_model->save()== true){
+        if($productRating_model->save() == true){
             $insertedId =  $productRating_model->id;
-            return view('show_review_ajax', ['product_rating'=> $rating_data, 'insertdId'=>$insertedId]);
+            return view('show_review_ajax', ['product_ratings'=> $rating_data, 'insertedId'=>$insertedId]);
         }
     }
 

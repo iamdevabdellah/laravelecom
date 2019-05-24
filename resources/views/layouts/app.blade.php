@@ -50,11 +50,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/contact">Contact</a>
           </li>
-        </ul>
+        {{-- </ul>
 
-        <ul>
+        <ul> --}}
           @if (Auth::check())
-        <a class="nav-link" href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">LogOut</a>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+          </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             {{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}
