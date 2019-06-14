@@ -110,6 +110,7 @@
 						$('.alert-danger').css("display", "block");
 						$('.alert-danger').delay(3000).fadeOut('slow');
 						$('#tid_'+temp_order_row_id).hide('slow');
+						window.location.href = '{{url('/')}}/mycart';
 					}
 				}
 			});

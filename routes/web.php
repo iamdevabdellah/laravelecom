@@ -52,8 +52,11 @@ Route::get('/mycart','CartController@myCart');
 Route::post('/update-cart','CartController@updateCart');
 
 Route::any('/cartItemDelete/{temp_order_row_id}','CartController@cartItemDelete');
+Route::any('/cartItemDeleteAll','CartController@cartItemDeleteAll');
 
-Route::any('/cartItemDeleteAll/','CartController@cartItemDeleteAll');
+// Checkout
+Route::get('/checkoutPage','CartController@checkOut');
+Route::get('/confirm-order','CartController@confirmOrder');
 
 
 

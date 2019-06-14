@@ -107,5 +107,22 @@ class CartController extends Controller
             session()->put('tracing_number', Session::getId());
         }
         DB::table('temp_orders')->where('tracking_number', session()->get('tracking_number'))->delete();
-    }
+	}
+	
+	public function checkOut() {
+		if(!session()->has('tracing_number')){
+            session()->put('tracing_number', Session::getId());
+		}
+		
+		$data =[];
+		return view('checkout-without-login',['data'=> $data]);
+
+
+	}
+
+	public function confirmOrder() {
+
+
+
+	}
 }
