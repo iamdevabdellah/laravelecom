@@ -59,7 +59,12 @@ Route::get('/checkoutPage','CartController@checkOut');
 Route::get('/confirm-order','CartController@confirmOrder');
 
 
-
+Route::group(['middleware' => 'admin', 'namespace' => 'Admin'], function () {           
+    Route::get('/admin', 'LoginController@login');
+    Route::post('/postAdminLogin', 'LoginController@postAdminLogin'); 
+    Route::get('/admin/logout', 'LoginController@logout');        
+    Route::get('/admin/dashboard', 'DashboardController@index');
+});
 
 
 
